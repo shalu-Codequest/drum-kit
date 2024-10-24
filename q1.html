@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio</title>
+    <style>
+        body {
+            background: #548687;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vh;
+        }
+        .key {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            height: 100px;
+            width: 70px;
+            border: 5px solid black;
+            border-radius: 5px;
+            transition: all 0.5s ease;
+            text-shadow: 0 0 .5rem black;
+        }
+        kbd {
+            font-size: 50px;
+            color: white;
+        }
+        span {
+            font-size: 30px;
+            color: #ffffc7;
+        }
+        .playing {
+            transform: scale(1.1);
+            border-color: #ffffc7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div data-key="65" class="key">
+            <kbd>A</kbd>
+            <span class="sound">clap</span>
+        </div>
+    </div>
+
+    <audio data-key="65" src="clap.wav"></audio>
+
+    <script>
+        function removeTransition(e) {
+            if (e.propertyName !== 'transform') return;
+            e.target.classList.remove('playing');
+        }
+
+        function playSound(e) {
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); // Changed from keyCode to key
+            const key = document.querySelector(`div[data-key="${e.keyCode}"]`); // Changed from keyCode to key
+            if (!audio) return;
+
+            key.classList.add('playing');
+            audio.currentTime = 0; // Reset audio to start
+            audio.play(); // Play the sound
+        }
+
+        // Attach the event listeners
+        window.addEventListener('keydown', playSound); // Listen for keydown on the window
+        const keys = document.querySelectorAll('.key');
+ keys.addEventListener('transitionend', removeTransition);
+    </script>
+</body>
+</html>
