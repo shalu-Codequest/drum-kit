@@ -1,1 +1,1 @@
-# drum-kit
+# A simple web-based drum kit application that allows users to play different drum sounds by pressing specific keys on their keyboard. Each key corresponds to a unique sound, providing an interactive way to create rhythms and music.
